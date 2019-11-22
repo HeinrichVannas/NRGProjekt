@@ -68,7 +68,7 @@ public class Sudoku_Generaator {
         return true;
     }
 
-    // Kontrollib kas number on kastis
+    // Kontrollib kas number on tulbas
     boolean tulp(int j,int num) {
         for (int i = 0; i<read; i++)
             if (mat[i][j] == num)
