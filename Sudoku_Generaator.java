@@ -1,10 +1,12 @@
+package application;
 import java.lang.*;
 
 public class Sudoku_Generaator {
-    int[] mat[];
+    static int[][] mat;
     int read;
     int reajuur;
     int puudu;
+    static int[][] lahend;
 
     // Constructor
     Sudoku_Generaator(int read, int puudu) {
@@ -13,13 +15,14 @@ public class Sudoku_Generaator {
         Double reajuurd = Math.sqrt(read);
         reajuur = reajuurd.intValue();
         mat = new int[read][read];
+        lahend = new int[read][read];
     }
 
     public void täida() {
         täidadiagonaal();
         täidakohad(0, reajuur);
-        int[] lahend[] = mat;
         eemalda();
+        
     }
     // Täidab reajuur X reajuur maatriksi diagonaali
     void täidadiagonaal() {
@@ -45,6 +48,7 @@ public class Sudoku_Generaator {
                 }
                 while (!kastis(rida, tulp, num));
                 mat[rida+i][tulp+j] = num;
+                lahend[rida+i][tulp+j] = num;
             }
         }
     }
@@ -68,7 +72,7 @@ public class Sudoku_Generaator {
         return true;
     }
 
-    // Kontrollib kas number on tulbas
+    // Kontrollib kas number on kastis
     boolean tulp(int j,int num) {
         for (int i = 0; i<read; i++)
             if (mat[i][j] == num)
@@ -104,9 +108,12 @@ public class Sudoku_Generaator {
         for (int num = 1; num<=read; num++) {
             if (kontroll(i, j, num)) {
                 mat[i][j] = num;
+                lahend[i][j] = num;
                 if (täidakohad(i, j+1))
                     return true;
                 mat[i][j] = 0;
+                lahend[i][j] = 0;
+
             }
         }
         return false;
@@ -127,7 +134,13 @@ public class Sudoku_Generaator {
         }
     }
 
+
     public void printSudoku() {
+        for (int i = 0; i<read; i++) {
+            for (int j = 0; j<read; j++)
+                System.out.print(lahend[i][j] + " ");
+            System.out.println();}
+        System.out.println();
         for (int i = 0; i<read; i++) {
             for (int j = 0; j<read; j++)
                 System.out.print(mat[i][j] + " ");
@@ -140,5 +153,17 @@ public class Sudoku_Generaator {
         Sudoku_Generaator sudoku = new Sudoku_Generaator(read, puudu);
         sudoku.täida();
         sudoku.printSudoku();
+    }
+    public static int[][] getmatriks() {
+        int read = 9, puudu = 40;
+        Sudoku_Generaator sudoku = new Sudoku_Generaator(read, puudu);
+    	sudoku.täida();
+        return mat;
+    }
+    public static int[][] getLahendus(){
+        int read = 9, puudu = 20;
+        Sudoku_Generaator sudoku = new Sudoku_Generaator(read, puudu);
+    	sudoku.täida();
+        return lahend;
     }
 }
