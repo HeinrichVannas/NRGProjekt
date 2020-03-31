@@ -9,7 +9,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="960.0" styleClass="base_pane" stylesheets="@application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ceafff" height="263.0" layoutX="541.0" layoutY="114.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f374da" height="263.0" layoutX="541.0" layoutY="114.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
       <Button fx:id="button_one" layoutX="562.0" layoutY="132.0" mnemonicParsing="false" onMouseClicked="#buttonOnePressed" prefHeight="50.0" prefWidth="50.0" text="1">
          <font>
             <Font name="System Bold" size="24.0" />
