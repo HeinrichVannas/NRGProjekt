@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_sudoku" default="compile.module.sudoku">
+  <dirname property="module.sudoku.basedir" file="${ant.file.module_sudoku}"/>
+  
+  <property name="module.jdk.home.sudoku" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.sudoku" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.sudoku" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.sudoku" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="sudoku.output.dir" value="${module.sudoku.basedir}/out/production/Sudoku"/>
+  <property name="sudoku.testoutput.dir" value="${module.sudoku.basedir}/out/test/Sudoku"/>
+  
+  <path id="sudoku.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="sudoku.module.production.classpath">
+    <path refid="${module.jdk.classpath.sudoku}"/>
+  </path>
+  
+  <path id="sudoku.runtime.production.module.classpath">
+    <pathelement location="${sudoku.output.dir}"/>
+  </path>
+  
+  <path id="sudoku.module.classpath">
+    <path refid="${module.jdk.classpath.sudoku}"/>
+    <pathelement location="${sudoku.output.dir}"/>
+  </path>
+  
+  <path id="sudoku.runtime.module.classpath">
+    <pathelement location="${sudoku.testoutput.dir}"/>
+    <pathelement location="${sudoku.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.sudoku">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.sudoku">
+    <patternset refid="excluded.from.module.sudoku"/>
+  </patternset>
+  
+  <path id="sudoku.module.sourcepath">
+    <dirset dir="${module.sudoku.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.sudoku" depends="compile.module.sudoku.production,compile.module.sudoku.tests" description="Compile module Sudoku"/>
+  
+  <target name="compile.module.sudoku.production" depends="register.custom.compilers" description="Compile module Sudoku; production classes">
+    <mkdir dir="${sudoku.output.dir}"/>
+    <javac2 destdir="${sudoku.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.sudoku}/javac">
+      <compilerarg line="${compiler.args.sudoku}"/>
+      <bootclasspath refid="sudoku.module.bootclasspath"/>
+      <classpath refid="sudoku.module.production.classpath"/>
+      <src refid="sudoku.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.sudoku"/>
+    </javac2>
+    
+    <copy todir="${sudoku.output.dir}">
+      <fileset dir="${module.sudoku.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.sudoku.tests" depends="register.custom.compilers,compile.module.sudoku.production" description="compile module Sudoku; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.sudoku" description="cleanup module">
+    <delete dir="${sudoku.output.dir}"/>
+    <delete dir="${sudoku.testoutput.dir}"/>
+  </target>
+</project>

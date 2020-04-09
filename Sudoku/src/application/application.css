@@ -1,0 +1,7 @@
+.base_pane {
+	 -fx-background-color: #FA8AFE;
+}
+.button {
+	 -fx-background-color: #FEFEFE;
+}.button:hover {
+	 -fx-background-color: #ecf0f1;}
