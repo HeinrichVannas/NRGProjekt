@@ -9,8 +9,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="960.0" styleClass="base_pane" stylesheets="@application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <children>
-      
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ceafff" height="263.0" layoutX="541.0" layoutY="114.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fd76da" height="263.0" layoutX="541.0" layoutY="114.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
       <Button fx:id="button_one" layoutX="562.0" layoutY="132.0" mnemonicParsing="false" onMouseClicked="#buttonOnePressed" prefHeight="50.0" prefWidth="50.0" text="1">
          <font>
             <Font name="System Bold" size="24.0" />
@@ -52,15 +51,13 @@
       <Button fx:id="button_kerge" layoutX="43.0" layoutY="538.0" mnemonicParsing="false" onMouseClicked="#loo_kerge" prefHeight="50.0" prefWidth="105.0" text="Kerge" />
       <Button fx:id="button_keskmine" layoutX="158.0" layoutY="538.0" mnemonicParsing="false" onMouseClicked="#loo_keskmine" prefHeight="51.0" prefWidth="105.0" text="Keskmine" />
       <Button fx:id="button_raske" layoutX="274.0" layoutY="538.0" mnemonicParsing="false" onMouseClicked="#loo_raske" prefHeight="50.0" prefWidth="105.0" text="Raske" />
+      <Canvas fx:id="Kell" height="120.0" layoutX="57.0" layoutY="597.0" width="300.0" />
       <Canvas fx:id="tulemus" height="200.0" layoutX="78.0" layoutY="170.0" width="300.0" />
-      <Canvas fx:id="canvas" height="450.0" layoutX="38.0" layoutY="71.0" onMouseClicked="#canvasMouseClicked" width="450.0" />
+      <Canvas fx:id="canvas" height="450.0" layoutX="38.0" layoutY="48.0" onKeyPressed="#canvasKeyPressed" onMouseClicked="#canvasMouseClicked" width="450.0" />
       <Label layoutX="520.0" layoutY="91.0" text="Lahtri täitmiseks vajuta vastvat numbrit" textFill="WHITE">
-
-
-            <font>
-               <Font size="14.0" />
-            </font>
+         <font>
+            <Font size="14.0" />
+         </font>
       </Label>
-      <Label layoutX="545.0" layoutY="408.0" prefHeight="51.0" prefWidth="170.0" text="#kell" />
    </children>
 </Pane>

@@ -1,7 +1,5 @@
 package application;
 
-import java.time.Clock;
-
 public class GameBoard {
     private int[][] solution;
     private int[][] initial;
