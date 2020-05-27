@@ -1,14 +1,10 @@
 package application;
 
-import java.time.Clock;
-
 public class GameBoard {
-    private int[][] solution;
     private int[][] initial;
     private int[][] player;
 
     public GameBoard(String tase) {
-        solution = Sudoku_Generaator.getLahendus();
         switch (tase){
             case "kerge":
                 initial = Sudoku_Generaator.getmatriks("kerge");
@@ -21,9 +17,6 @@ public class GameBoard {
                 break;
         }
         player = new int[9][9];
-    }
-    public int[][] getSolution() {
-        return solution;
     }
     public int[][] getInitial() {
         return initial;

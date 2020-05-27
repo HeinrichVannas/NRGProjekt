@@ -6,7 +6,7 @@
   <property name="module.jdk.bin.sudoku" value="${project.jdk.bin}"/>
   <property name="module.jdk.classpath.sudoku" value="${project.jdk.classpath}"/>
   
-  <property name="compiler.args.sudoku" value="-encoding UTF-8 -source 11 -target 11 ${compiler.args}"/>
+  <property name="compiler.args.sudoku" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
   
   <property name="sudoku.output.dir" value="${module.sudoku.basedir}/out/production/Sudoku"/>
   <property name="sudoku.testoutput.dir" value="${module.sudoku.basedir}/out/test/Sudoku"/>
