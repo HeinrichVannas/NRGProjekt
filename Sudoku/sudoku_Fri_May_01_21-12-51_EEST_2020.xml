@@ -237,31 +237,5 @@
   
   <target name="build.modules" depends="init, clean, compile.module.sudoku" description="build all modules"/>
   
-  <target name="init.artifacts">
-    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
-    <property name="artifact.output.sudoku:jar" value="${basedir}/out/artifacts/Sudoku_jar"/>
-    <mkdir dir="${artifacts.temp.dir}"/>
-    <property name="temp.jar.path.Sudoku.jar" value="${artifacts.temp.dir}/Sudoku.jar"/>
-  </target>
-  
-  <target name="artifact.sudoku:jar" depends="init.artifacts, compile.module.sudoku" description="Build &#39;Sudoku:jar&#39; artifact">
-    <property name="artifact.temp.output.sudoku:jar" value="${artifacts.temp.dir}/Sudoku_jar"/>
-    <mkdir dir="${artifact.temp.output.sudoku:jar}"/>
-    <jar destfile="${temp.jar.path.Sudoku.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
-      <zipfileset dir="${sudoku.output.dir}"/>
-    </jar>
-    <copy file="${temp.jar.path.Sudoku.jar}" tofile="${artifact.temp.output.sudoku:jar}/Sudoku.jar"/>
-  </target>
-  
-  <target name="build.all.artifacts" depends="artifact.sudoku:jar" description="Build all artifacts">
-    <mkdir dir="${artifact.output.sudoku:jar}"/>
-    <copy todir="${artifact.output.sudoku:jar}">
-      <fileset dir="${artifact.temp.output.sudoku:jar}"/>
-    </copy>
-    
-    <!-- Delete temporary files -->
-    <delete dir="${artifacts.temp.dir}"/>
-  </target>
-  
-  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+  <target name="all" depends="build.modules" description="build all"/>
 </project>

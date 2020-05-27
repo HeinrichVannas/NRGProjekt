@@ -1,35 +1,28 @@
 package application;
 
-import javafx.animation.Animation;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
-import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
-import javafx.event.Event;
 
-import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-public class Controller implements Initializable {
+public class Controller<enough> implements Initializable {
     @FXML Button button_one;
     @FXML Button button_two;
     @FXML Button button_three;
@@ -41,27 +34,28 @@ public class Controller implements Initializable {
     @FXML Button button_nine;
     @FXML Canvas tulemus;
     @FXML Canvas canvas;
+    @FXML Canvas Kell;
     @FXML Button button_clear;
     @FXML Button button_kontroll;
     @FXML Button button_kerge;
     @FXML Button button_keskmine;
     @FXML Button button_raske;
-    @FXML  Button time;
     int player_selected_row;
     int player_selected_col;
-    private int minut;
-    private int tund;
-    private int sekund;
     GameBoard gameboard;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         GraphicsContext context = canvas.getGraphicsContext2D();
         GraphicsContext result = tulemus.getGraphicsContext2D();
+        GraphicsContext kell = Kell.getGraphicsContext2D();
         result.clearRect(0, 0, 300, 200);
         context.clearRect(0, 0, 450, 450);
+        setkell(Kell.getGraphicsContext2D());
+
     }
-    public void drawOnCanvas(GraphicsContext context) {
+    public void drawOnCanvas(GraphicsContext context, GraphicsContext result) {
+        result.clearRect(0,0,450,450);
         context.clearRect(0, 0, 450, 450);
         context.setStroke(Color.BLACK);
         context.setLineWidth(3);
@@ -115,6 +109,30 @@ public class Controller implements Initializable {
             }
         }
     }
+    public void canvasKeyPressed(){
+        canvas.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent ke) {
+                System.out.println(ke.getCode());
+                switch (ke.getCode()){
+                    case S:
+                        player_selected_col = player_selected_col + 1;
+                        break;
+                    case D:
+                        player_selected_row = player_selected_row + 1;
+                        break;
+                    case W:
+                        player_selected_col = player_selected_col - 1;
+                        break;
+                    case A:
+                        player_selected_row = player_selected_row - 1;
+                        break;
+
+                }
+                drawOnCanvas(canvas.getGraphicsContext2D(), tulemus.getGraphicsContext2D());
+            }
+        });
+    }
     public void canvasMouseClicked() {
         canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -124,73 +142,71 @@ public class Controller implements Initializable {
 
                 player_selected_row = (int) (mouse_y / 50);
                 player_selected_col = (int) (mouse_x / 50);
-
-                drawOnCanvas(canvas.getGraphicsContext2D());
+                drawOnCanvas(canvas.getGraphicsContext2D(), tulemus.getGraphicsContext2D());
             }
         });
     }
 
 
+
     public void buttonOnePressed() {
         gameboard.modifyPlayer(1, player_selected_row, player_selected_col);
-        drawOnCanvas(canvas.getGraphicsContext2D());
+        drawOnCanvas(canvas.getGraphicsContext2D(), tulemus.getGraphicsContext2D());
     }
     public void buttonTwoPressed() {
         gameboard.modifyPlayer(2, player_selected_row, player_selected_col);
-        drawOnCanvas(canvas.getGraphicsContext2D());
+        drawOnCanvas(canvas.getGraphicsContext2D(), tulemus.getGraphicsContext2D());
     }
 
     public void buttonThreePressed() {
         gameboard.modifyPlayer(3, player_selected_row, player_selected_col);
-        drawOnCanvas(canvas.getGraphicsContext2D());
+        drawOnCanvas(canvas.getGraphicsContext2D(), tulemus.getGraphicsContext2D());
     }
 
     public void buttonFourPressed() {
         gameboard.modifyPlayer(4, player_selected_row, player_selected_col);
-        drawOnCanvas(canvas.getGraphicsContext2D());
+        drawOnCanvas(canvas.getGraphicsContext2D(), tulemus.getGraphicsContext2D());
     }
 
     public void buttonFivePressed() {
         gameboard.modifyPlayer(5, player_selected_row, player_selected_col);
-        drawOnCanvas(canvas.getGraphicsContext2D());
+        drawOnCanvas(canvas.getGraphicsContext2D(), tulemus.getGraphicsContext2D());
     }
 
     public void buttonSixPressed() {
         gameboard.modifyPlayer(6, player_selected_row, player_selected_col);
-        drawOnCanvas(canvas.getGraphicsContext2D());
+        drawOnCanvas(canvas.getGraphicsContext2D(), tulemus.getGraphicsContext2D());
     }
 
     public void buttonSevenPressed() {
         gameboard.modifyPlayer(7, player_selected_row, player_selected_col);
-        drawOnCanvas(canvas.getGraphicsContext2D());
+        drawOnCanvas(canvas.getGraphicsContext2D(), tulemus.getGraphicsContext2D());
     }
 
     public void buttonEightPressed() {
         gameboard.modifyPlayer(8, player_selected_row, player_selected_col);
-        drawOnCanvas(canvas.getGraphicsContext2D());
+        drawOnCanvas(canvas.getGraphicsContext2D(), tulemus.getGraphicsContext2D());
     }
 
     public void buttonNinePressed() {
         gameboard.modifyPlayer(9, player_selected_row, player_selected_col);
-        drawOnCanvas(canvas.getGraphicsContext2D());
+        drawOnCanvas(canvas.getGraphicsContext2D(), tulemus.getGraphicsContext2D());
     }
     public void Clear() {
         gameboard.modifyPlayer(0, player_selected_row, player_selected_col);
-        drawOnCanvas(canvas.getGraphicsContext2D());}
+        drawOnCanvas(canvas.getGraphicsContext2D(), tulemus.getGraphicsContext2D());}
     public void kontroll(){
         Tulemus(tulemus.getGraphicsContext2D(), canvas.getGraphicsContext2D());
     }public void loo_kerge(){
         gameboard = new GameBoard("kerge");
-        drawOnCanvas(canvas.getGraphicsContext2D());
+        drawOnCanvas(canvas.getGraphicsContext2D(), tulemus.getGraphicsContext2D());
     }
     public void loo_keskmine(){
         gameboard = new GameBoard("keskmine");
-        drawOnCanvas(canvas.getGraphicsContext2D());}
+        drawOnCanvas(canvas.getGraphicsContext2D(), tulemus.getGraphicsContext2D());}
     public void loo_raske(){
         gameboard = new GameBoard("raske");
-        drawOnCanvas(canvas.getGraphicsContext2D());
-    }
-
+        drawOnCanvas(canvas.getGraphicsContext2D(), tulemus.getGraphicsContext2D());}
     public void Tulemus(GraphicsContext result, GraphicsContext context){
         result.setFont(new Font(20));
         if(gameboard.checkForSuccess() == true) {
@@ -208,30 +224,12 @@ public class Controller implements Initializable {
             result.fillText("Vale!", 100, 150);
         }
     }
-
-
-    @FXML
-    public void kell(){
-        Thread kell = new Thread(){
-            public void run(){
-                for (;;){
-                    DateFormat dateFormat = new SimpleDateFormat("hh:mm:a");
-                    Calendar calendar = Calendar.getInstance();
-                    sekund = calendar.get(Calendar.SECOND);
-                    tund = calendar.get(Calendar.HOUR);
-                    minut = calendar.get(Calendar.MINUTE);
-                    time.setText(tund + ":" + (minut) + ":" + sekund);
-
-                    try {
-                        sleep(1000);
-
-                    }
-                    catch (InterruptedException ex){
-
-                    }
-                }
-            }
-        };
-        kell.start();
+    public static void setkell(GraphicsContext kell){
+        kell.setFill(Color.BLACK);
+        LocalDateTime aeg = LocalDateTime.now();
+        DateTimeFormatter aeg1 = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String formaaditud = aeg.format(aeg1);
+        kell.fillText(formaaditud, 150, 60);
     }
+
 }
